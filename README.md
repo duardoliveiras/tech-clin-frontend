@@ -12,6 +12,9 @@ Este projeto é um website destinado a facilitar o agendamento de consultas méd
 - [ ] Perfil Usuário
 - [ ] Perfil Médico
 - [ ] Parceiros
+- [ ] 
+
+[...]
 
 ## Em Desenvolvimento
 
