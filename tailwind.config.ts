@@ -18,6 +18,11 @@ const config: Config = {
         secondary: "#49B09F",
         third: "#007A63",
       },
+      textColor: {
+        primary: "#8AD4C6",
+        secondary: "#49B09F",
+        third: "#007A63",
+      },
     },
   },
   plugins: [],
