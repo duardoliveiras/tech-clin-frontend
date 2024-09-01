@@ -1,7 +1,10 @@
+"use client";
+import { useState } from "react";
+
 export const Register = () => {
   return (
     <div className="flex w-1/2 h-full justify-center items-center">
-      <div className="flex flex-col bg-white border text-black border-gray-300 w-[80%]  shadow-md rounded-lg py-2">
+      <form className="flex flex-col bg-white border text-black border-gray-300 w-[80%]  shadow-md rounded-lg py-2">
         <div className="w-full justify-center flex">
           <h1 className="text-2xl font-bold text-black">Cadastre-se Já</h1>
         </div>
@@ -31,11 +34,14 @@ export const Register = () => {
           </div>
         </div>
         <div className="w-full flex justify-center">
-          <button className="flex bg-blue-500 rounded-lg p-2 text-white font-bold hover:bg-blue-600">
+          <button
+            type="submit"
+            className="flex bg-blue-500 rounded-lg p-2 text-white font-bold hover:bg-blue-600"
+          >
             Cadastrar
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
