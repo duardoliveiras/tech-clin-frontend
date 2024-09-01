@@ -8,30 +8,12 @@ import {
   Stethoscope,
 } from "lucide-react";
 import Image from "next/image";
+import Header from "./Header";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-white">
-      <div className="w-full bg-primary h-auto overflow-hidden justify-center flex ">
-        <div className="w-full md:w-[80%] h-full font-semibold flex flex-row justify-between items-center uppercase gap-x-24">
-          <div className="w-auto">
-            <Image src={"/techclin.svg"} width={60} height={60} alt={"Logo"} />
-          </div>
-
-          <div className="w-full justify-center gap-x-5 text-white items-center flex flex-row">
-            <p className="cursor-pointer hover:text-green-600">inicio</p>
-            <p className="cursor-pointer hover:text-green-600">parceiros</p>
-            <p className="cursor-pointer hover:text-green-600">contato</p>
-            <p className="cursor-pointer hover:text-green-600">agendar</p>
-          </div>
-          <div className="w-auto">
-            <div className="w-auto  h-auto text-xs text-white hover:text-green-600 cursor-pointer gap-x-2 rounded-lg p-2 flex items-center justify-center">
-              <LogIn />
-              <p>Entrar</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Header />
       <div className="w-full h-full bg-white flex flex-col p-16">
         <div className="w-full h-auto flex flex-row">
           <div className="w-1/2 flex overflow-hidden">
@@ -47,7 +29,7 @@ export default function Home() {
               <Stethoscope size={40} />
               <p>sua saúde em primeiro lugar</p>
             </div>
-            <div className="mt-5 w-full pl-10 gap-y-10 text-2xl flex flex-col">
+            <div className="mt-5 w-full pl-10 gap-y-10 text-2xl flex flex-col text-green-700">
               <div className="w-full items-center gap-x-2  flex">
                 <AlarmClock className="text-green-700" />
                 <p>Facilidade em marcar suas consultas e exames.</p>
