@@ -1,7 +1,51 @@
+"use client";
+import { useEffect, useState } from "react";
+
+interface iLogin {
+  email: string;
+  password: string;
+}
+
 export const Login = () => {
+  const [loginData, setLoginData] = useState<iLogin>({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao fazer login");
+      }
+      const data = await response.json();
+      window.alert(data.message);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
+  useEffect(() => {
+    console.log(loginData);
+  }, [loginData]);
+
   return (
     <div className="flex w-1/2 h-full justify-center items-center">
-      <div className="flex flex-col bg-white border text-black border-gray-300 w-[80%]  shadow-md rounded-lg py-2">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col bg-white border text-black border-gray-300 w-[80%]  shadow-md rounded-lg py-2"
+      >
+        {error && <p className="text-red-500">{error}</p>}
         <div className="w-full justify-center flex">
           <h1 className="text-2xl font-bold text-black">Entrar</h1>
         </div>
@@ -11,6 +55,12 @@ export const Login = () => {
             <input
               className="w-full h-10 rounded-lg border-blue-800 border px-2"
               type="email"
+              onChange={(e) =>
+                setLoginData((prev) => ({
+                  ...prev,
+                  email: e.target.value,
+                }))
+              }
               placeholder="seunome@email.com"
             />
           </div>
@@ -18,16 +68,25 @@ export const Login = () => {
             <p className="font-bold text-black">Password:</p>
             <input
               className="w-full h-10 rounded-lg border-blue-800 border px-2"
+              onChange={(e) =>
+                setLoginData((prev) => ({
+                  ...prev,
+                  password: e.target.value,
+                }))
+              }
               type="password"
             />
           </div>
         </div>
         <div className="w-full flex justify-center">
-          <button className="flex bg-blue-500 rounded-lg p-2 text-white font-bold hover:bg-blue-600">
+          <button
+            type="submit"
+            className="flex bg-blue-500 rounded-lg p-2 text-white font-bold hover:bg-blue-600"
+          >
             Entrar
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
