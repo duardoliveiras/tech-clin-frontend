@@ -1,17 +1,18 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface iLogin {
   email: string;
   password: string;
 }
-
 export const Login = () => {
   const [loginData, setLoginData] = useState<iLogin>({
     email: "",
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +31,11 @@ export const Login = () => {
       }
       const data = await response.json();
       setError(null);
-      window.alert(data.message);
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        router.push("/");
+      }
     } catch (err: any) {
       setError(err.message);
     }

@@ -4,7 +4,6 @@ import {
   ChevronLeft,
   ChevronRight,
   LayoutGrid,
-  LogIn,
   Stethoscope,
 } from "lucide-react";
 import Image from "next/image";

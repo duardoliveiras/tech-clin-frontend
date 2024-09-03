@@ -1,3 +1,4 @@
+"use client";
 import {
   Dispatch,
   ReactNode,
@@ -41,6 +42,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const token = localStorage.getItem("token");
 
     if (token) {
+      console.log("token", token);
     }
   }, []);
 
