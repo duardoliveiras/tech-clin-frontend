@@ -1,6 +1,7 @@
 "use client";
+import { AuthContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface iLogin {
   email: string;
@@ -13,6 +14,8 @@ export const Login = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  const { setUser } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +35,15 @@ export const Login = () => {
       const data = await response.json();
       setError(null);
 
-      if (data.token) {
+      if (data) {
         localStorage.setItem("token", data.token);
+        const user = {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+        };
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
         router.push("/");
       }
     } catch (err: any) {
@@ -42,8 +52,11 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    console.log(loginData);
-  }, [loginData]);
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <div className="flex w-1/2 h-full justify-center items-center">
