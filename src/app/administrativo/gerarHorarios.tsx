@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 
 interface Horario {
@@ -15,6 +14,7 @@ export const GerarHorarios = () => {
   const [medico, setMedico] = useState<string>("");
   const [dataInicial, setDataInicial] = useState<string>("");
   const [dataFinal, setDataFinal] = useState<string>("");
+  const [days, setDays] = useState<string[]>([]);
 
   const gerarHorarios = () => {
     const novosHorarios: Horario[] = [
@@ -45,6 +45,12 @@ export const GerarHorarios = () => {
 
   const salvarHorarios = () => {
     console.log("Horários salvos: ", horarios);
+  };
+
+  const toggleDays = (day: string) => {
+    setDays((prev) =>
+      prev.includes(day) ? prev.filter((s) => s !== day) : [...prev, day]
+    );
   };
 
   return (
@@ -83,13 +89,35 @@ export const GerarHorarios = () => {
 
         <button
           onClick={gerarHorarios}
-          className="py-2 px-4 bg-green-500 text-white"
+          className="py-2 px-4  rounded-lg bg-green-500 text-white"
         >
           Gerar horários
         </button>
       </div>
+      <div className="flex space-x-2">
+        {[
+          "segunda-feira",
+          "terça-feira",
+          "quarta-feira",
+          "quinta-feira",
+          "sexta-feira",
+          "sábado",
+        ].map((day) => (
+          <button
+            key={day}
+            className={`px-4 py-2 border rounded-lg ${
+              days.includes(day) ? "bg-primary text-white" : "bg-gray-300"
+            }`}
+            onClick={() => {
+              toggleDays(day);
+            }}
+          >
+            {day}
+          </button>
+        ))}
+      </div>
 
-      <table className="min-w-full bg-white border">
+      <table className="min-w-full mt-2 bg-white border">
         <thead>
           <tr>
             <th className="border px-4 py-2">#</th>
@@ -116,7 +144,7 @@ export const GerarHorarios = () => {
 
       <button
         onClick={salvarHorarios}
-        className="mt-4 py-2 px-4 bg-blue-500 text-white"
+        className="mt-4 py-2 px-4  rounded-lg bg-blue-500 text-white"
       >
         Salvar
       </button>

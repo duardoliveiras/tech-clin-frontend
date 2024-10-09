@@ -1,5 +1,3 @@
-"use client";
-// pages/medico.tsx
 import { useState } from "react";
 
 const MedicoForm = () => {
@@ -9,7 +7,6 @@ const MedicoForm = () => {
   const [cpf, setCpf] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [especialidade, setEspecialidade] = useState<string>("");
-
   const salvarMedico = () => {
     const novoMedico = {
       nome,

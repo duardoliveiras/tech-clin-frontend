@@ -34,7 +34,6 @@ export const Register = () => {
         setError("Erro ao realizar a requisição");
         return;
       }
-      window.alert("Usuário criado com sucesso!");
     } catch (err: any) {
       //setError(err.message);
       console.error(err);

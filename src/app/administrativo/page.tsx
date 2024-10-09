@@ -6,7 +6,7 @@ import { GerarHorarios } from "./gerarHorarios";
 import MedicoForm from "./medicoForm";
 
 const Administrativo = () => {
-  const [activeScreen, setActiveScreen] = useState<string>("clinica");
+  const [activeScreen, setActiveScreen] = useState<string>("medico");
 
   const renderScreen = () => {
     switch (activeScreen) {
@@ -55,7 +55,7 @@ const Administrativo = () => {
           Gerar Horários
         </button>
       </div>
-      <div className="flex-1 p-8 bg-white">{renderScreen()}</div>
+      <div className="flex-1 p-8 bg-white overflow-auto">{renderScreen()}</div>
     </div>
   );
 };
