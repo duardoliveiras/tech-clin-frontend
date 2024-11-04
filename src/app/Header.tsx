@@ -42,7 +42,14 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex justify-center items-center gap-x-2">
-                <p>{user.name}</p>
+                <p
+                  className="hover:text-green-600"
+                  onClick={() => {
+                    router.push("/profile");
+                  }}
+                >
+                  {user.name}
+                </p>
                 <p>/</p>
                 <p className="hover:text-green-600" onClick={() => logout()}>
                   Sair
