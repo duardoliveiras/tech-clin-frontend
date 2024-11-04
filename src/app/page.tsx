@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import Header from "./Header";
 import ImageSlider from "./components/imageSlider";
+import Footer from "./footer";
 
 export default function Home() {
   const images = [
@@ -99,6 +100,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

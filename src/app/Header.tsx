@@ -10,16 +10,14 @@ export default function Header() {
   const { user, logout } = useContext(AuthContext);
   const router = useRouter();
 
-  console.log(user);
-
   return (
-    <div className="w-full bg-primary h-auto overflow-hidden justify-center flex ">
+    <div className="w-full bg-white border-b h-auto overflow-hidden justify-center flex ">
       <div className="w-full md:w-[80%] h-full font-semibold flex flex-row justify-between items-center uppercase gap-x-24">
-        <div className="w-auto">
-          <Image src={"/techclin.svg"} width={60} height={60} alt={"Logo"} />
+        <div className="w-auto p-1">
+          <Image src={"/tech_clin.png"} width={60} height={60} alt={"Logo"} />
         </div>
 
-        <div className="w-full justify-center gap-x-5 text-white items-center flex flex-row">
+        <div className="w-full justify-center gap-x-5 text-gray-800 items-center flex flex-row">
           <p
             className="cursor-pointer hover:text-green-600"
             onClick={() => router.push("/")}
@@ -31,7 +29,7 @@ export default function Header() {
           <p className="cursor-pointer hover:text-green-600">agendar</p>
         </div>
         <div className="w-auto">
-          <div className="w-auto  h-auto text-xs text-white  cursor-pointer gap-x-2 rounded-lg p-2 flex items-center justify-center">
+          <div className="w-auto  h-auto text-xs text-gray-800   cursor-pointer gap-x-2 rounded-lg p-2 flex items-center justify-center">
             {!user ? (
               <div
                 className="flex justify-center hover:text-green-600 items-center gap-x-2"
