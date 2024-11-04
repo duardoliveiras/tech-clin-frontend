@@ -27,8 +27,8 @@ const ClinicForm = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [position, setPosition] = useState<[number, number]>([
-    -23.55052, -46.633308,
-  ]); // Posição inicial em São Paulo
+    -15.5987, -56.0991,
+  ]); // Posição inicial em Cuiabá
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

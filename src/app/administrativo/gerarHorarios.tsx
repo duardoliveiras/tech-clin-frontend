@@ -57,7 +57,7 @@ export const GerarHorarios = () => {
     <div className="flex-1 p-8 bg-gray-100 text-black">
       <div className="flex space-x-4 mb-6">
         <select
-          className="border p-2"
+          className="border p-2 rounded-md"
           value={clinica}
           onChange={(e) => setClinica(e.target.value)}
         >
@@ -66,7 +66,7 @@ export const GerarHorarios = () => {
         </select>
 
         <select
-          className="border p-2"
+          className="border p-2 rounded-md"
           value={medico}
           onChange={(e) => setMedico(e.target.value)}
         >
@@ -78,13 +78,20 @@ export const GerarHorarios = () => {
           type="date"
           value={dataInicial}
           onChange={(e) => setDataInicial(e.target.value)}
-          className="border p-2"
+          className="border p-2 rounded-md"
         />
         <input
           type="date"
           value={dataFinal}
           onChange={(e) => setDataFinal(e.target.value)}
-          className="border p-2"
+          className="border p-2 rounded-md"
+        />
+        <input
+          type="number"
+          value={dataFinal}
+          placeholder="Tempo da consulta"
+          onChange={(e) => setDataFinal(e.target.value)}
+          className="border p-2 rounded-md"
         />
 
         <button

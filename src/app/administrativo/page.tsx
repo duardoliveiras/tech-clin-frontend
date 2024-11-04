@@ -1,5 +1,5 @@
 "use client";
-// pages/administrativo.tsx
+
 import { useState } from "react";
 import ClinicaForm from "./clinicaForm";
 import { GerarHorarios } from "./gerarHorarios";
