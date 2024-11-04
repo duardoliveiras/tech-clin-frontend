@@ -8,13 +8,61 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Header from "./Header";
+import ImageSlider from "./components/imageSlider";
 
 export default function Home() {
+  const images = [
+    {
+      src: "/assets/clinicas/1.jpeg",
+      title: "POR DO SOL",
+      subtitle: "CLÍNICA POR DO SOL",
+    },
+    {
+      src: "/assets/clinicas/2.jpg",
+      title: "CLÍNICA POR DO SOL",
+      subtitle: "CLÍNICA POR DO SOL",
+    },
+    {
+      src: "/assets/clinicas/3.jpg",
+      title: "CLÍNICA DA LUA",
+      subtitle: "CLÍNICA DA LUA",
+    },
+    {
+      src: "/assets/clinicas/1.jpeg",
+      title: "POR DO SOL",
+      subtitle: "CLÍNICA POR DO SOL",
+    },
+    {
+      src: "/assets/clinicas/2.jpg",
+      title: "CLÍNICA POR DO SOL",
+      subtitle: "CLÍNICA POR DO SOL",
+    },
+    {
+      src: "/assets/clinicas/3.jpg",
+      title: "CLÍNICA DA LUA",
+      subtitle: "CLÍNICA DA LUA",
+    },
+    {
+      src: "/assets/clinicas/1.jpeg",
+      title: "POR DO SOL",
+      subtitle: "CLÍNICA POR DO SOL",
+    },
+    {
+      src: "/assets/clinicas/2.jpg",
+      title: "CLÍNICA POR DO SOL",
+      subtitle: "CLÍNICA POR DO SOL",
+    },
+    {
+      src: "/assets/clinicas/3.jpg",
+      title: "CLÍNICA DA LUA",
+      subtitle: "CLÍNICA DA LUA",
+    },
+  ];
   return (
     <main className="flex min-h-screen flex-col items-center bg-white">
       <Header />
       <div className="w-full h-full bg-white flex flex-col p-16">
-        <div className="w-full h-auto flex flex-row">
+        <div className="w-full h-full flex flex-row">
           <div className="w-1/2 flex overflow-hidden">
             <Image
               src={"/assets/doctors.svg"}
@@ -44,18 +92,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="w-full h-64 flex flex-row bg-green-700 mt-20 rounded-lg overflow-hidden">
-          <div className="w-1/12 h-full flex bg-third justify-center items-center text-white">
-            <ChevronLeft />
-          </div>
+        <div className="w-full h-[35vh] flex flex-row bg-green-700 mt-20 rounded-lg overflow-hidden">
           <div className="w-full h-full bg-secondary flex flex-col items-center p-3">
             <div className="font-semibold text-white">Clínicas</div>
-            <div className="w-1/2 h-full bg-gray-500 flex justify-center items-center">
-              imagem clínica
-            </div>
-          </div>
-          <div className="w-1/12 h-full flex bg-third justify-center items-center text-white">
-            <ChevronRight />
+            <ImageSlider images={images} />
           </div>
         </div>
       </div>
