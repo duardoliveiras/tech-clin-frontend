@@ -4,10 +4,15 @@ import { AuthContext } from "@/context/UserContext";
 import { LogIn } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import ContactModal from "./components/contactModal";
 
 export default function Header() {
   const { user, logout } = useContext(AuthContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   const router = useRouter();
 
   return (
@@ -25,7 +30,13 @@ export default function Header() {
             inicio
           </p>
           <p className="cursor-pointer hover:text-green-600">parceiros</p>
-          <p className="cursor-pointer hover:text-green-600">contato</p>
+          <p
+            className="cursor-pointer hover:text-green-600"
+            onClick={openModal}
+          >
+            contato
+          </p>
+          <ContactModal isOpen={isModalOpen} onClose={closeModal} />
           <p className="cursor-pointer hover:text-green-600">agendar</p>
         </div>
         <div className="w-auto">
