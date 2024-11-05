@@ -24,26 +24,35 @@ export default function Header() {
 
         <div className="w-full justify-center gap-x-5 text-gray-800 items-center flex flex-row">
           <p
-            className="cursor-pointer hover:text-green-600"
+            className="cursor-pointer hover:text-green-600 select-none"
             onClick={() => router.push("/")}
           >
             inicio
           </p>
-          <p className="cursor-pointer hover:text-green-600">parceiros</p>
+          <p className="cursor-pointer hover:text-green-600 select-none">
+            parceiros
+          </p>
           <p
-            className="cursor-pointer hover:text-green-600"
+            className="cursor-pointer hover:text-green-600 select-none"
             onClick={openModal}
           >
             contato
           </p>
           <ContactModal isOpen={isModalOpen} onClose={closeModal} />
-          <p className="cursor-pointer hover:text-green-600">agendar</p>
+          <p
+            className="cursor-pointer hover:text-green-600 select-none"
+            onClick={() => {
+              router.push("/agendamento");
+            }}
+          >
+            agendar
+          </p>
         </div>
         <div className="w-auto">
           <div className="w-auto  h-auto text-xs text-gray-800   cursor-pointer gap-x-2 rounded-lg p-2 flex items-center justify-center">
             {!user ? (
               <div
-                className="flex justify-center hover:text-green-600 items-center gap-x-2"
+                className="flex justify-center select-none hover:text-green-600 items-center gap-x-2"
                 onClick={() => {
                   router.push("/login");
                 }}
@@ -52,19 +61,30 @@ export default function Header() {
                 <p>Entrar</p>
               </div>
             ) : (
-              <div className="flex justify-center items-center gap-x-2">
-                <p
-                  className="hover:text-green-600"
-                  onClick={() => {
-                    router.push("/profile");
-                  }}
-                >
-                  {user.name}
-                </p>
-                <p>/</p>
-                <p className="hover:text-green-600" onClick={() => logout()}>
-                  Sair
-                </p>
+              <div className="flex gap-x-2">
+                <div className="flex w-10 h-10 rounded-full border-2 justify-center items-center overflow-hidden">
+                  <Image
+                    src="/assets/profile.png"
+                    alt="profile"
+                    width={40}
+                    height={40}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex justify-center select-none items-center gap-x-2">
+                  <p
+                    className="hover:text-green-600"
+                    onClick={() => {
+                      router.push("/profile");
+                    }}
+                  >
+                    {user.name}
+                  </p>
+                  <p>/</p>
+                  <p className="hover:text-green-600" onClick={() => logout()}>
+                    Sair
+                  </p>
+                </div>
               </div>
             )}
           </div>
