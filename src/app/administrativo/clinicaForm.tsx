@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
+import { toast } from "react-toastify";
 import { MapRecenter } from "./map/mapRecenter";
 
 // Importacao dinamica das bibliotecas de mapa para evitar problemas no servidor
@@ -19,16 +20,32 @@ const DynamicMarker = dynamic(
   { ssr: false }
 );
 
+type FullAddress = {
+  cidade: string;
+  estado: string;
+  rua: string;
+  cep: string;
+  lat: number | null;
+  lon: number | null;
+};
+
 const ClinicForm = () => {
-  // Estados do formulário
   const [clinicName, setClinicName] = useState("");
   const [cnpj, setCnpj] = useState("");
   const [address, setAddress] = useState("");
+  const [fullAddress, setFullAddress] = useState<FullAddress>({
+    cidade: "",
+    estado: "",
+    rua: "",
+    cep: "",
+    lat: null,
+    lon: null,
+  });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [position, setPosition] = useState<[number, number]>([
     -15.5987, -56.0991,
-  ]); // Posição inicial em Cuiabá
+  ]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +75,16 @@ const ClinicForm = () => {
     const results = await response.json();
     if (results && results.length > 0) {
       const firstResult = results[0];
-      console.log(firstResult);
+
+      setFullAddress({
+        cidade: firstResult.address.city,
+        estado: firstResult.address.state,
+        rua: firstResult.address.road,
+        cep: firstResult.address.postcode,
+        lat: Number(firstResult.lat),
+        lon: Number(firstResult.lon),
+      });
+
       const coords: [number, number] = [
         parseFloat(firstResult.lat),
         parseFloat(firstResult.lon),
@@ -69,6 +95,16 @@ const ClinicForm = () => {
     }
   };
 
+  const handleCreateClinica = async () => {
+    const response = await fetch("localhost:4000/clinica", {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   // Função para adicionar/remover especialidades
   const toggleSpecialty = (specialty: string) => {
     setSpecialties((prev) =>
@@ -77,6 +113,11 @@ const ClinicForm = () => {
         : [...prev, specialty]
     );
   };
+
+  useEffect(() => {
+    console.log(fullAddress);
+    toast.error("TSETE");
+  }, [fullAddress]);
 
   return (
     <div className="p-8 bg-white overflow-auto text-gray-700 rounded-lg shadow-md w-full max-w-2xl mx-auto">
