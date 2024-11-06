@@ -1,7 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import { toast } from "react-toastify";
 import { MapRecenter } from "./map/mapRecenter";
@@ -29,7 +29,16 @@ type FullAddress = {
   lon: number | null;
 };
 
+type Especialidade = {
+  id: number;
+  descricao: string;
+};
+
 const ClinicForm = () => {
+  const [especialidades, setEspecialidades] = useState<Especialidade[]>([]);
+  const [selectedEspecialidade, setSelectedEspecialidade] = useState<number[]>(
+    []
+  );
   const [clinicName, setClinicName] = useState("");
   const [cnpj, setCnpj] = useState("");
   const [address, setAddress] = useState("");
@@ -42,7 +51,7 @@ const ClinicForm = () => {
     lon: null,
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [specialties, setSpecialties] = useState<string[]>([]);
+
   const [position, setPosition] = useState<[number, number]>([
     -15.5987, -56.0991,
   ]);
@@ -96,28 +105,75 @@ const ClinicForm = () => {
   };
 
   const handleCreateClinica = async () => {
-    const response = await fetch("localhost:4000/clinica", {
-      method: "POST",
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      },
-    });
+    const loadingToast = toast.loading("Carregando...");
+
+    try {
+      if (!selectedFile) {
+        toast.update(loadingToast, {
+          render: "Selecione uma imagem!",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
+        return;
+      }
+      const formData = new FormData();
+      formData.append("file", selectedFile); // Adicione a imagem
+      formData.append(
+        "data",
+        JSON.stringify({
+          ...fullAddress,
+          cnpj: cnpj,
+          nome: clinicName,
+          especialidadeIds: selectedEspecialidade,
+        })
+      );
+
+      const response = await fetch("http://localhost:4000/clinica", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.update(loadingToast, {
+          render: "Clínica criada com sucesso!",
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      } else {
+        toast.update(loadingToast, {
+          render: "Falha ao criar a clínica. Tente novamente.",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      }
+    } catch (error) {
+      toast.update(loadingToast, {
+        render: "Erro na requisição. Tente novamente.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    }
   };
 
   // Função para adicionar/remover especialidades
-  const toggleSpecialty = (specialty: string) => {
-    setSpecialties((prev) =>
-      prev.includes(specialty)
-        ? prev.filter((s) => s !== specialty)
-        : [...prev, specialty]
+  const toggleSpecialty = (id: number) => {
+    setSelectedEspecialidade((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
     );
   };
 
   useEffect(() => {
-    console.log(fullAddress);
-    toast.error("TSETE");
-  }, [fullAddress]);
+    const getAllEspecialidades = async () => {
+      const response = await fetch("http://localhost:4000/especialidades");
+      const data = await response.json();
+      setEspecialidades(data);
+    };
+    getAllEspecialidades();
+  }, []);
 
   return (
     <div className="p-8 bg-white overflow-auto text-gray-700 rounded-lg shadow-md w-full max-w-2xl mx-auto">
@@ -204,23 +260,26 @@ const ClinicForm = () => {
       <div className="mb-4">
         <label className="block text-gray-700">Especialidades</label>
         <div className="flex space-x-2">
-          {["cardiologia", "dermatologia", "pediatria"].map((specialty) => (
+          {especialidades.map((specialty) => (
             <button
-              key={specialty}
-              className={`px-4 py-2 border rounded-lg ${
-                specialties.includes(specialty)
+              key={specialty.id}
+              className={`px-4 py-2 border rounded-lg  first-letter:uppercase ${
+                selectedEspecialidade.includes(specialty.id)
                   ? "bg-primary text-white"
                   : "bg-gray-300"
               }`}
-              onClick={() => toggleSpecialty(specialty)}
+              onClick={() => toggleSpecialty(specialty.id)}
             >
-              {specialty}
+              {specialty.descricao}
             </button>
           ))}
         </div>
       </div>
       {/* Botão de Salvar */}
-      <button className="w-full py-2 px-4 bg-green-500 text-white rounded-lg">
+      <button
+        className="w-full py-2 px-4 bg-green-500 text-white rounded-lg"
+        onClick={handleCreateClinica}
+      >
         Salvar
       </button>
     </div>

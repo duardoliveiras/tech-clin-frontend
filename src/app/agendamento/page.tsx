@@ -38,6 +38,7 @@ const SchedulingPage: React.FC = () => {
               specialty={schedule.specialty}
               name={schedule.name}
               times={schedule.times}
+              date={schedule.date}
               onTimeClick={handleTimeClick}
             />
           ))}

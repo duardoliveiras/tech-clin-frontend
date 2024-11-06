@@ -16,7 +16,7 @@ const MedicoForm = () => {
       email,
       especialidade,
     };
-    console.log("Médico salvo:", novoMedico);
+
     setNome("");
     setDataNascimento("");
     setCrm("");

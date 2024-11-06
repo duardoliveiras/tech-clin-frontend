@@ -4,6 +4,7 @@ interface ScheduleCardProps {
   specialty: string;
   name: string;
   times: string[];
+  date: string;
   onTimeClick: (time: string) => void;
 }
 
@@ -11,6 +12,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
   specialty,
   name,
   times,
+  date,
   onTimeClick,
 }) => {
   return (
@@ -21,6 +23,9 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         </p>
         <p>
           <strong>Nome:</strong> {name}
+        </p>
+        <p>
+          <strong>Data:</strong> {date}
         </p>
       </div>
       <div className="times">
