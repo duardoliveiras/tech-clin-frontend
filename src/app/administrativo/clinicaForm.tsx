@@ -29,7 +29,7 @@ type FullAddress = {
   lon: number | null;
 };
 
-type Especialidade = {
+export type Especialidade = {
   id: number;
   descricao: string;
 };
