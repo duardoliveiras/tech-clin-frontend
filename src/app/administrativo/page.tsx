@@ -23,12 +23,12 @@ const Administrativo = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <div className="w-64 bg-primary p-4 flex flex-col space-y-4">
+      <div className="w-64 bg-third p-4 flex flex-col space-y-4">
         <button
           className={`py-2 px-4 rounded-lg ${
             activeScreen === "clinica"
               ? "bg-white text-gray-700"
-              : "bg-gray-300 text-white"
+              : "bg-gray-400 text-white"
           }`}
           onClick={() => setActiveScreen("clinica")}
         >
@@ -38,7 +38,7 @@ const Administrativo = () => {
           className={`py-2 px-4 rounded-lg ${
             activeScreen === "medico"
               ? "bg-white text-gray-700"
-              : "bg-gray-300 text-white"
+              : "bg-gray-400 text-white"
           }`}
           onClick={() => setActiveScreen("medico")}
         >
@@ -48,7 +48,7 @@ const Administrativo = () => {
           className={`py-2 px-4 rounded-lg ${
             activeScreen === "gerarHorarios"
               ? "bg-white text-gray-700"
-              : "bg-gray-300 text-hite"
+              : "bg-gray-400 text-hite"
           }`}
           onClick={() => setActiveScreen("gerarHorarios")}
         >

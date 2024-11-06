@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 const Footer: React.FC = () => {
@@ -14,24 +15,19 @@ const Footer: React.FC = () => {
           <h3 className="text-xl font-semibold mb-4">Links Rápidos</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:text-white">
+              <Link href="/sobre" className="hover:text-white">
                 Sobre Nós
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <Link href="/servicos" className="hover:text-white">
                 Serviços
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
-                Contato
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white">
+              <Link href="/faq" className="hover:text-white">
                 FAQ
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
